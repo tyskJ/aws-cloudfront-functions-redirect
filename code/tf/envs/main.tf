@@ -2,9 +2,8 @@
 # ║ CloudFront Functions redirect Stack - Terraform main.tf module                                                                                   ║
 # ╠═════════════════╤═══════════════════════════════════╤════════════════════════════════════════════════════════════════════════════════════════════╣
 # ║ acm             │ ../modules/acm                    │ invoke acm module.                                                                         ║
-# ║ s3              │ ../modules/s3                     │ invoke s3 module.                                                                          ║
 # ║ web             │ ../modules/web                    │ invoke web module.                                                                         ║
-# ║ cloudfront      │ ../modules/cloudfront             │ invoke cloudfront module.                                                                  ║
+# ║ cloudfront_s3   │ ../modules/cloudfront_s3          │ invoke cloudfront and S3 module.                                                           ║
 # ╚═════════════════╧═══════════════════════════════════╧════════════════════════════════════════════════════════════════════════════════════════════╝
 
 module "acm" {
@@ -17,13 +16,6 @@ module "acm" {
   providers = {
     aws.global = aws.virginia
   }
-}
-
-module "s3" {
-  source = "../modules/s3"
-
-  bucket_name = var.bucket_name
-  alb_fqdn    = var.alb_fqdn
 }
 
 module "web" {
@@ -42,12 +34,13 @@ module "web" {
   alb_cert_arn      = module.acm.alb_cert_arn
 }
 
-module "cloudfront" {
-  source     = "../modules/cloudfront"
+module "cloudfront_s3" {
+  source     = "../modules/cloudfront_s3"
   depends_on = [module.acm]
 
+  bucket_name = var.bucket_name
+  alb_fqdn    = var.alb_fqdn
   cloudfront_cert_arn    = module.acm.cloudfront_cert_arn
-  website_endpoint       = module.s3.website_endpoint
   cloudfront_hostzone_id = var.cloudfront_hostzone_id
   cloudfront_fqdn        = var.cloudfront_fqdn
 }

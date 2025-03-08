@@ -1,20 +1,27 @@
 # ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 # ║ CloudFront Functions redirect Stack - Terraform variable.tf variable                                                                             ║
 # ╠══════════════════════════════════╤═══════════════════════════════════╤═══════════════════════════════════════════════════════════════════════════╣
+# ║ bucket_name                      │ string                            │ S3 Bucket Name.                                                           ║
+# ║ alb_fqdn                         │ string                            │ ALB FQDN.                                                                 ║
 # ║ cloudfront_cert_arn              │ string                            │ CloudFront Certificate ARN.                                               ║
-# ║ website_endpoint                 │ string                            │ S3 Static WebSite Endpoint Name.                                          ║
 # ║ cloudfront_hostzone_id           │ string                            │ Hostzone id.                                                              ║
 # ║ cloudfront_fqdn                  │ string                            │ CloudFront FQDN.                                                          ║
 # ╚══════════════════════════════════╧═══════════════════════════════════╧═══════════════════════════════════════════════════════════════════════════╝
 
+variable "bucket_name" {
+  type        = string
+  description = "S3 Bucket Name."
+}
+
+variable "alb_fqdn" {
+  type        = string
+  description = "ALB FQDN."
+}
+
+
 variable "cloudfront_cert_arn" {
   type        = string
   description = "CloudFront Certificate ARN."
-}
-
-variable "website_endpoint" {
-  type        = string
-  description = "S3 Static WebSite Endpoint Name."
 }
 
 variable "cloudfront_hostzone_id" {
