@@ -21,19 +21,14 @@
         |   |-- output.tf                         リソース戻り値定義ファイル
         |   |-- variable.tf                       変数定義ファイル
         |   `-- version.tf                        プロバイダーバージョン管理ファイル
-        |-- cloudfront                          CloudFrontモジュール
-        |   |-- data.tf                           外部データソース定義ファイル
-        |   |-- main.tf                           リソース定義ファイル
-        |   |-- output.tf                         リソース戻り値定義ファイル
-        |   `-- variable.tf                       変数定義ファイル
-        |-- s3                                  S3モジュール
-        |   |-- data.tf                           外部データソース定義ファイル
+        |-- cloudfront_s3                       CloudFrontモジュール
         |   |-- html                              静的ウェブサイトホスティング用HTMLファイル
         |   |   |-- error.html
         |   |   `-- index.html
         |   |-- json                              バケットポリシー＆リダイレクトルールJSONファイル
         |   |   |-- bucket-policy.json
         |   |   `-- redirect-rule.json
+        |   |-- data.tf                           外部データソース定義ファイル
         |   |-- main.tf                           リソース定義ファイル
         |   |-- output.tf                         リソース戻り値定義ファイル
         |   `-- variable.tf                       変数定義ファイル
