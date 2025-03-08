@@ -27,11 +27,12 @@ Metadata:
           default: ALB Domain Settings.
         Parameters:
           - HostedZoneIdForAlb
-          - FqdnforAlb
+          - FqdnForAlb
       - Label:
           default: CloudFront Domain Settings.
         Parameters:
-          - FqdnforCloudFront
+          - HostedZoneIdForCloudFront
+          - FqdnForCloudFront
           - CertArnForCloudFront
       - Label:
           default: S3 Settings.
@@ -49,9 +50,10 @@ Metadata:
 # ║ LatestAmiId                           │ AWS::SSM::Parameter::Value<AWS::EC2::Image::Id> │ Latest Amazon Linux 2023 Ami ID.                       ║
 # ║ InstanceType                          │ String                                          │ Instance Type.                                         ║
 # ║ RootVolumeSize                        │ Number                                          │ RootVolumeSize.                                        ║
-# ║ HostedZoneIdforAlb                    │ AWS::Route53::HostedZone::Id                    │ Public Hosted Zone ID.                                 ║
-# ║ FqdnforAlb                            │ String                                          │ FQDN.                                                  ║
-# ║ FqdnforCloudFront                     │ String                                          │ FQDN.                                                  ║
+# ║ HostedZoneIdForAlb                    │ AWS::Route53::HostedZone::Id                    │ Public Hosted Zone ID.                                 ║
+# ║ FqdnForAlb                            │ String                                          │ FQDN.                                                  ║
+# ║ HostedZoneIdForCloudFront             │ AWS::Route53::HostedZone::Id                    │ Public Hosted Zone ID.                                 ║
+# ║ FqdnForCloudFront                     │ String                                          │ FQDN.                                                  ║
 # ║ CertArnForCloudFront                  │ String                                          │ Certificate ARN.                                       ║
 # ║ S3BucketName                          │ String                                          │ S3 Bucket Name.                                        ║
 # ╚═══════════════════════════════════════╧═════════════════════════════════════════════════╧════════════════════════════════════════════════════════╝
@@ -89,17 +91,21 @@ Parameters:
     Description: EC2 Instance Root Volume Size.
     Type: Number
 
-  HostedZoneIdforAlb:
+  HostedZoneIdForAlb:
     Description: HostedZone ID for ALB Validation Certificate.
     Type: AWS::Route53::HostedZone::Id
 
-  FqdnforAlb:
+  FqdnForAlb:
     Description: FQDN for issue ALB Certificate Domain Name.
     Type: String
     AllowedPattern: "^[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\\.[a-zA-Z]{2,})+\\.?$"
     ConstraintDescription: "The domain name must be valid. Example: example.com"
 
-  FqdnforCloudFront:
+  HostedZoneIdForCloudFront:
+    Description: HostedZone ID for CloudFront issue Alias Record.
+    Type: AWS::Route53::HostedZone::Id
+
+  FqdnForCloudFront:
     Description: FQDN for CloudFront Alias Name(alternative domain name).
     Type: String
     AllowedPattern: "^[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\\.[a-zA-Z]{2,})+\\.?$"
@@ -272,6 +278,8 @@ Mappings:
 # ║ AlbRecordSet                        │ AWS::Route53::RecordSet                   │ Alias RecordSet for ALB.                                       ║
 # ║ AlbAcm                              │ AWS::CertificateManager::Certificate      │ ACM Public Certificate.                                        ║
 # ║ Bucket                              │ AWS::S3::Bucket                           │ S3 Bucket for Redirect.                                        ║
+# ║ Distribution                        │ AWS::CloudFront::Distribution             │ CloudFront Distribution.                                       ║
+# ║ CloudFrontRecordSet                 │ AWS::Route53::RecordSet                   │ Alias RecordSet for CloudFront.                                ║
 # ║ BucketPolicy                        │ AWS::S3::BucketPolicy                     │ S3 Bucket Policy.                                              ║
 # ╚═════════════════════════════════════╧═══════════════════════════════════════════╧════════════════════════════════════════════════════════════════╝
 Resources:
@@ -628,8 +636,8 @@ Resources:
   AlbRecordSet:
     Type: AWS::Route53::RecordSet
     Properties:
-      HostedZoneId: !Ref HostedZoneId
-      Name: !Ref Fqdn
+      HostedZoneId: !Ref HostedZoneIdForAlb
+      Name: !Ref FqdnForAlb
       Type: A
       AliasTarget:
         DNSName: !GetAtt Alb.DNSName
@@ -639,10 +647,10 @@ Resources:
   AlbAcm:
     Type: AWS::CertificateManager::Certificate
     Properties:
-      DomainName: !Ref Fqdn
+      DomainName: !Ref FqdnForAlb
       DomainValidationOptions:
-        - DomainName: !Ref Fqdn
-          HostedZoneId: !Ref HostedZoneId
+        - DomainName: !Ref FqdnForAlb
+          HostedZoneId: !Ref HostedZoneIdForAlb
       ValidationMethod: DNS
       Tags:
         - Key: Name
@@ -651,7 +659,7 @@ Resources:
   Bucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Ref S3RedirectBucketName
+      BucketName: !Ref S3BucketName
       BucketEncryption:
         ServerSideEncryptionConfiguration:
           - BucketKeyEnabled: true
@@ -660,34 +668,66 @@ Resources:
       PublicAccessBlockConfiguration:
         BlockPublicAcls: true
         IgnorePublicAcls: true
-        BlockPublicPolicy: false
-        RestrictPublicBuckets: false
-      WebsiteConfiguration:
-        IndexDocument: index.html
-        ErrorDocument: error.html
-        Fn::Transform:
-          Name: AWS::Include
-          Parameters:
-            Location: !Ref S3RedirectRuleFileS3Uri
+        BlockPublicPolicy: true
+        RestrictPublicBuckets: true
 
-  BucketPolicy:
-    Type: AWS::S3::BucketPolicy
+  Distribution:
+    Type: AWS::CloudFront::Distribution
     Properties:
-      Bucket: !Ref Bucket
-      PolicyDocument:
-        {
-          "Version": "2012-10-17",
-          "Statement":
-            [
-              {
-                "Sid": "AllowCloudFrontServicePrincipalReadWrite",
-                "Effect": "Allow",
-                "Principal": "*",
-                "Action": "s3:GetObject",
-                "Resource":
-                  [{ "Fn::Sub": "arn:${AWS::Partition}:s3:::${Bucket}/*" }],
-                "Condition":
-                  { "StringEquals": { "aws:UserAgent": "Amazon CloudFront" } },
-              },
-            ],
-        }
+      DistributionConfig:
+        Enabled: true
+        DefaultRootObject: index.html
+        Origins:
+          - Id: S3CustomOrigin
+            DomainName: !Ref WebSiteEndpoint
+            CustomOriginConfig:
+              HTTPPort: 80
+              OriginProtocolPolicy: http-only
+        DefaultCacheBehavior:
+          TargetOriginId: S3CustomOrigin
+          ViewerProtocolPolicy: redirect-to-https
+          ForwardedValues:
+            QueryString: false
+        CustomErrorResponses:
+          - ErrorCachingMinTTL: 10
+            ErrorCode: 404
+            ResponseCode: 200
+            ResponsePagePath: /error.html
+        Aliases:
+          - !Ref FqdnForCloudFront
+        ViewerCertificate:
+          AcmCertificateArn: !Ref CertArnForCloudFront
+          SslSupportMethod: sni-only
+
+  CloudFrontRecordSet:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref HostedZoneIdForCloudFront
+      Name: !Ref FqdnForCloudFront
+      Type: A
+      AliasTarget:
+        DNSName: !GetAtt Distribution.DomainName
+        HostedZoneId: Z2FDTNDATAQYW2
+        EvaluateTargetHealth: true
+
+  # BucketPolicy:
+  #   Type: AWS::S3::BucketPolicy
+  #   Properties:
+  #     Bucket: !Ref Bucket
+  #     PolicyDocument:
+  #       {
+  #         "Version": "2012-10-17",
+  #         "Statement":
+  #           [
+  #             {
+  #               "Sid": "AllowCloudFrontServicePrincipalReadWrite",
+  #               "Effect": "Allow",
+  #               "Principal": "*",
+  #               "Action": "s3:GetObject",
+  #               "Resource":
+  #                 [{ "Fn::Sub": "arn:${AWS::Partition}:s3:::${Bucket}/*" }],
+  #               "Condition":
+  #                 { "StringEquals": { "aws:UserAgent": "Amazon CloudFront" } },
+  #             },
+  #           ],
+  #       }
