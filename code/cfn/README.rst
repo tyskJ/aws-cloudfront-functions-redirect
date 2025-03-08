@@ -68,7 +68,7 @@
 
   rain deploy tokyostack.yaml TOKYOSTACK \
   --s3-bucket cfn-$DATE-apne1 \
-  --config tokyostack-parameter.yaml --profile admin
+  --config tokyo-parameter.yaml --profile admin
 
 * 以下プロンプトより入力
 
