@@ -24,15 +24,19 @@ Metadata:
           - InstanceType
           - RootVolumeSize
       - Label:
-          default: Domain Settings.
+          default: ALB Domain Settings.
         Parameters:
-          - HostedZoneId
-          - Fqdn
+          - HostedZoneIdForAlb
+          - FqdnforAlb
+      - Label:
+          default: CloudFront Domain Settings.
+        Parameters:
+          - FqdnforCloudFront
+          - CertArnForCloudFront
       - Label:
           default: S3 Settings.
         Parameters:
-          - S3RedirectBucketName
-          - S3RedirectRuleFileS3Uri
+          - S3BucketName
 
 # ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 # ║ CloudFront Functions redirect Stack - CloudFormation Template Parameters                                                                         ║
@@ -45,10 +49,11 @@ Metadata:
 # ║ LatestAmiId                           │ AWS::SSM::Parameter::Value<AWS::EC2::Image::Id> │ Latest Amazon Linux 2023 Ami ID.                       ║
 # ║ InstanceType                          │ String                                          │ Instance Type.                                         ║
 # ║ RootVolumeSize                        │ Number                                          │ RootVolumeSize.                                        ║
-# ║ HostedZoneId                          │ AWS::Route53::HostedZone::Id                    │ Public Hosted Zone ID.                                 ║
-# ║ Fqdn                                  │ String                                          │ FQDN.                                                  ║
-# ║ S3RedirectBucketName                  │ String                                          │ Redirect S3 Bucket Name.                               ║
-# ║ S3RedirectRuleFileS3Uri               │ String                                          │ Redirect Rule File S3 URI.                             ║
+# ║ HostedZoneIdforAlb                    │ AWS::Route53::HostedZone::Id                    │ Public Hosted Zone ID.                                 ║
+# ║ FqdnforAlb                            │ String                                          │ FQDN.                                                  ║
+# ║ FqdnforCloudFront                     │ String                                          │ FQDN.                                                  ║
+# ║ CertArnForCloudFront                  │ String                                          │ Certificate ARN.                                       ║
+# ║ S3BucketName                          │ String                                          │ S3 Bucket Name.                                        ║
 # ╚═══════════════════════════════════════╧═════════════════════════════════════════════════╧════════════════════════════════════════════════════════╝
 Parameters:
   VpcCidr:
@@ -84,27 +89,33 @@ Parameters:
     Description: EC2 Instance Root Volume Size.
     Type: Number
 
-  HostedZoneId:
-    Description: HostedZone ID.
+  HostedZoneIdforAlb:
+    Description: HostedZone ID for ALB Validation Certificate.
     Type: AWS::Route53::HostedZone::Id
 
-  Fqdn:
-    Description: FQDN.
+  FqdnforAlb:
+    Description: FQDN for issue ALB Certificate Domain Name.
     Type: String
     AllowedPattern: "^[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\\.[a-zA-Z]{2,})+\\.?$"
     ConstraintDescription: "The domain name must be valid. Example: example.com"
 
-  S3RedirectBucketName:
-    Description: S3 Bucket Name for Redirect.
+  FqdnforCloudFront:
+    Description: FQDN for CloudFront Alias Name(alternative domain name).
+    Type: String
+    AllowedPattern: "^[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\\.[a-zA-Z]{2,})+\\.?$"
+    ConstraintDescription: "The domain name must be valid. Example: example.com"
+
+  CertArnForCloudFront:
+    Description: Certificate ARN for CloudFront.
+    Type: String
+    AllowedPattern: "^arn:aws:[a-z0-9-]+:us-east-1:\\d{12}:[a-zA-Z0-9/_-]+$"
+    ConstraintDescription: "Check Certificate ARN issued from us-east-1."
+
+  S3BucketName:
+    Description: S3 Bucket Name for CloudFront Origin.
     Type: String
     AllowedPattern: "^(?!xn--|sthree(?:-configurator|-)|amzn-s3-demo-)(?!.*[.]{2})(?!.*\\d+\\.\\d+\\.\\d+\\.\\d+$)(?!.*-s3alias$)(?!.*--ol-s3$)(?!.*\\.mrap$)(?!.*--x-s3$)(?!.*\\..*)[a-z0-9][a-z0-9.-]{1,61}[a-z0-9]$"
     ConstraintDescription: "Check Reference URL: https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/bucketnamingrules.html"
-
-  S3RedirectRuleFileS3Uri:
-    Description: S3 Rule File Location for Redirect.
-    Type: String
-    AllowedPattern: "^s3://.*"
-    ConstraintDescription: "Check S3 URI"
 
 # ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 # ║ CloudFront Functions redirect Stack - CloudFormation Template Mappings                                                                           ║
