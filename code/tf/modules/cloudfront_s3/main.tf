@@ -7,6 +7,7 @@
 # ║ object1                            │ aws_s3_object                                       │ Upload file.                                          ║
 # ║ object2                            │ aws_s3_object                                       │ Upload file.                                          ║
 # ║ oac                                │ aws_cloudfront_origin_access_control                │ CloudFront OAC.                                       ║
+# ║ function                           │ aws_cloudfront_function                             │ CloudFront Function.                                  ║
 # ║ distribution                       │ aws_cloudfront_distribution                         │ CloudFront Distribution.                              ║
 # ║ cloudfront_recordset               │ aws_route53_record                                  │ CloudFront Alias Record Set.                          ║
 # ║ bucket_policy                      │ aws_s3_bucket_policy                                │ S3 Bucket Policy.                                     ║
@@ -55,6 +56,16 @@ resource "aws_cloudfront_origin_access_control" "oac" {
   signing_protocol                  = "sigv4"
 }
 
+resource "aws_cloudfront_function" "function" {
+  name    = "cf-redirect-function"
+  runtime = "cloudfront-js-2.0"
+  comment = "Redirect"
+  publish = true
+  code = templatefile("${path.module}/assets/function.js", {
+    FqdnForAlb = var.alb_fqdn
+  })
+}
+
 resource "aws_cloudfront_distribution" "distribution" {
   enabled             = true
   wait_for_deployment = true
@@ -69,6 +80,10 @@ resource "aws_cloudfront_distribution" "distribution" {
     viewer_protocol_policy = "redirect-to-https"
     allowed_methods        = ["GET", "HEAD"]
     cached_methods         = ["GET", "HEAD"]
+    function_association {
+      event_type   = "viewer-request"
+      function_arn = aws_cloudfront_function.function.arn
+    }
     forwarded_values {
       query_string = false
       cookies {
