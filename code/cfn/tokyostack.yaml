@@ -278,6 +278,7 @@ Mappings:
 # ║ AlbRecordSet                        │ AWS::Route53::RecordSet                   │ Alias RecordSet for ALB.                                       ║
 # ║ AlbAcm                              │ AWS::CertificateManager::Certificate      │ ACM Public Certificate.                                        ║
 # ║ Bucket                              │ AWS::S3::Bucket                           │ S3 Bucket for Redirect.                                        ║
+# ║ OriginAccessControl                 │ AWS::CloudFront::OriginAccessControl      │ OAC.                                                           ║
 # ║ Distribution                        │ AWS::CloudFront::Distribution             │ CloudFront Distribution.                                       ║
 # ║ CloudFrontRecordSet                 │ AWS::Route53::RecordSet                   │ Alias RecordSet for CloudFront.                                ║
 # ║ BucketPolicy                        │ AWS::S3::BucketPolicy                     │ S3 Bucket Policy.                                              ║
@@ -670,6 +671,16 @@ Resources:
         IgnorePublicAcls: true
         BlockPublicPolicy: true
         RestrictPublicBuckets: true
+
+  OriginAccessControl:
+    Type: AWS::CloudFront::OriginAccessControl
+    Properties:
+      OriginAccessControlConfig:
+        Name: cf-oac-for-s3
+        Description: For S3 Origin
+        OriginAccessControlOriginType: s3
+        SigningProtocol: sigv4
+        SigningBehavior: always
 
   Distribution:
     Type: AWS::CloudFront::Distribution
