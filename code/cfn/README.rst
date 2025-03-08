@@ -50,7 +50,7 @@
 ---------------------------------------------------------------------
 .. code-block:: bash
 
-  rain deploy virginiastack.yaml VIRGINIATSTACK \
+  rain deploy virginiastack.yaml VIRGINIASTACK \
   --s3-bucket cfn-$DATE-useast1 \
   --region us-east-1 --profile admin
 
