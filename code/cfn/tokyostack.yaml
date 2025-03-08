@@ -689,11 +689,11 @@ Resources:
         Enabled: true
         DefaultRootObject: index.html
         Origins:
-          - Id: S3CustomOrigin
-            DomainName: !Ref WebSiteEndpoint
-            CustomOriginConfig:
-              HTTPPort: 80
-              OriginProtocolPolicy: http-only
+          - Id: !Ref Bucket
+            DomainName: !GetAtt Bucket.RegionalDomainName
+            OriginAccessControlId: !GetAtt OriginAccessControl.Id
+            S3OriginConfig:
+              OriginAccessIdentity: !Ref AWS::NoValue
         DefaultCacheBehavior:
           TargetOriginId: S3CustomOrigin
           ViewerProtocolPolicy: redirect-to-https
