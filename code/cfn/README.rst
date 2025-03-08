@@ -76,12 +76,14 @@
 
   "Parameter", "概要", "入力値"
   "LatestAmiId", "AmazonLinux2023最新AMIID", "何も入力せずEnter"
-  "HostedZoneId", "Route 53 Public Hosted Zoneに登録しているドメインのHosted zone ID", "ご自身が所有するパブリックホストゾーンID（ALBのAliasレコード登録先）"
-  "Fqdn", "ALBのAliasレコードを登録するときのFQDN", "ご自身で登録したいFQDN"
-  "S3RedirectBucketName", "Redirect用S3バケット名", "静的ウェブサイトホスティング用のS3バケット名"
-  "S3RedirectRuleFileS3Uri", "リダイレクトルールJSONファイルのS3URI", "アップロードしたリダイレクトルールファイルのS3URI"
+  "HostedZoneIdForAlb", "Route 53 Public Hosted Zoneに登録しているドメインのHosted zone ID", "ご自身が所有するパブリックホストゾーンID（ALBのAliasレコード及び証明書CNAMEレコード登録先）"
+  "FqdnForAlb", "ALBのAliasレコードを登録するときのFQDN", "ご自身で登録したいFQDN"
+  "HostedZoneIdForCloudFront", "Route 53 Public Hosted Zoneに登録しているドメインのHosted zone ID", "ご自身が所有するパブリックホストゾーンID（CloudFrontのAliasレコード登録先）"
+  "FqdnForCloudFront", "CloudFrontのAliasレコードを登録するときのFQDN", "ご自身で登録したいFQDN"
+  "CertArnForCloudFront", "CloudFront用証明書ARN", "virginiastackデプロイ時に表示されたARN"
+  "S3BucketName", "S3バケット名", "CloudFrontのオリジン用S3バケット名"
 
-3. HTMLファイルアップロード
+1. HTMLファイルアップロード
 ---------------------------------------------------------------------
 * *index.html*, *error.html* をS3バケットにアップロード
 
