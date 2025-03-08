@@ -100,7 +100,7 @@
   -var "cloudfront_hostzone_id=CloudFront用Aliasレコードを登録するパブリックホストゾーンのゾーンID" \
   -var "cloudfront_fqdn=CloudFront用AliasレコードのFQDN"
 
-1. *tfstate* 用S3バケット削除
+2. *tfstate* 用S3バケット削除
 ---------------------------------------------------------------------
 .. code-block:: bash
 
