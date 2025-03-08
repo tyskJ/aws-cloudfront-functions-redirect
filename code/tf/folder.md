@@ -22,7 +22,7 @@
         |   |-- variable.tf                       変数定義ファイル
         |   `-- version.tf                        プロバイダーバージョン管理ファイル
         |-- cloudfront_s3                       CloudFront&S3モジュール
-        |   |-- html                              静的ウェブサイトホスティング用HTMLファイル
+        |   |-- html                              CloudFrontデフォルトルートオブジェクト&エラーページ用HTMLファイル
         |   |   |-- error.html
         |   |   `-- index.html
         |   |-- json                              バケットポリシー＆リダイレクトルールJSONファイル
