@@ -1,5 +1,5 @@
 # ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-# ║ CloudFront S3 websitehosting redirect Stack - Terraform locals.tf locals                                                                         ║
+# ║ CloudFront Functions redirect Stack - Terraform locals.tf locals                                                                                 ║
 # ╠══════════════════════════╤═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
 # ║ accout_id                │ Account ID.                                                                                                           ║
 # ║ region_name              │ Region name.                                                                                                          ║

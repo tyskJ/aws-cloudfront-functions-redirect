@@ -1,5 +1,5 @@
 # ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-# ║ CloudFront S3 websitehosting redirect Stack - Terraform variable.tf variable                                                                     ║
+# ║ CloudFront Functions redirect Stack - Terraform variable.tf variable                                                                             ║
 # ╠══════════════════════════════════╤═══════════════════════════════════╤═══════════════════════════════════════════════════════════════════════════╣
 # ║ cloudfront_cert_arn              │ string                            │ CloudFront Certificate ARN.                                               ║
 # ║ website_endpoint                 │ string                            │ S3 Static WebSite Endpoint Name.                                          ║

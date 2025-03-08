@@ -1,5 +1,5 @@
 # ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-# ║ CloudFront S3 websitehosting redirect Stack - Terraform variable.tf variable                                                                     ║
+# ║ CloudFront Functions redirect Stack - Terraform variable.tf variable                                                                             ║
 # ╠══════════════════════════════════╤═══════════════════════════════════╤═══════════════════════════════════════════════════════════════════════════╣
 # ║ vpc_map                          │ map(string)                       │ VPC settings map.                                                         ║
 # ║ subnet_map_list                  │ list(map(string))                 │ Subnet settings map list.                                                 ║

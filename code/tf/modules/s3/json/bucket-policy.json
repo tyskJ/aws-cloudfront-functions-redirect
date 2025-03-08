@@ -2,14 +2,14 @@
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Sid": "AllowCloudFrontServicePrincipalReadWrite",
+      "Sid": "AllowCloudFrontServicePrincipal",
       "Effect": "Allow",
-      "Principal": "*",
+      "Principal": { "Service": "cloudfront.amazonaws.com" },
       "Action": ["s3:GetObject"],
       "Resource": ["${BucketArn}/*"],
       "Condition": {
         "StringEquals": {
-          "aws:UserAgent": "Amazon CloudFront"
+          "AWS:SourceArn": "${DistributionArn}"
         }
       }
     }

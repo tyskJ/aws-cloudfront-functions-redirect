@@ -1,5 +1,5 @@
 # ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-# ║ CloudFront S3 websitehosting redirect Stack - Terraform main.tf resource                                                                         ║
+# ║ CloudFront Functions redirect Stack - Terraform main.tf resource                                                                                 ║
 # ╠════════════════════════════════════╤═════════════════════════════════════════════════════╤═══════════════════════════════════════════════════════╣
 # ║ distribution                       │ aws_cloudfront_distribution                         │ CloudFront Distribution.                              ║
 # ║ cloudfront_recordset               │ aws_route53_record                                  │ CloudFront Alias Record Set.                          ║

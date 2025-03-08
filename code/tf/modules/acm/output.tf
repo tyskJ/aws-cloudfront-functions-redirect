@@ -1,5 +1,5 @@
 # ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-# ║ CloudFront S3 websitehosting redirect Stack - Terraform output.tf output                                                                         ║
+# ║ CloudFront Functions redirect Stack - Terraform output.tf output                                                                                 ║
 # ╠═════════════════════════════╤════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
 # ║ alb_cert_arn                │ ALB Certificate ARN.                                                                                               ║
 # ║ cloudfront_cert_arn         │ CloudFront Certificate ARN.                                                                                        ║

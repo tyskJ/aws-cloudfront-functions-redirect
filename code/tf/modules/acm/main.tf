@@ -1,5 +1,5 @@
 # ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-# ║ CloudFront S3 websitehosting redirect Stack - Terraform main.tf resource                                                                         ║
+# ║ CloudFront Functions redirect Stack - Terraform main.tf resource                                                                                 ║
 # ╠════════════════════════════════════╤═════════════════════════════════════════════════════╤═══════════════════════════════════════════════════════╣
 # ║ alb_cert                           │ aws_acm_certificate                                 │ Public Certificate for ALB.                           ║
 # ║ alb_cert_cname_record              │ aws_route53_record                                  │ CNAME record for alb certificate.                     ║

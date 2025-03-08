@@ -1,5 +1,5 @@
 # ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-# ║ CloudFront S3 websitehosting redirect Stack - Terraform main.tf resource                                                                         ║
+# ║ CloudFront Functions redirect Stack - Terraform main.tf resource                                                                         ║
 # ╠════════════════════════════════════╤═════════════════════════════════════════════════════╤═══════════════════════════════════════════════════════╣
 # ║ vpc                                │ aws_vpc                                             │ VPC.                                                  ║
 # ║ subnet                             │ aws_subnet                                          │ Subnet.                                               ║

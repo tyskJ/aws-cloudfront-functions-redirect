@@ -1,5 +1,5 @@
 # ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-# ║ CloudFront S3 websitehosting redirect Stack - Terraform main.tf module                                                                           ║
+# ║ CloudFront Functions redirect Stack - Terraform main.tf module                                                                                   ║
 # ╠═════════════════╤═══════════════════════════════════╤════════════════════════════════════════════════════════════════════════════════════════════╣
 # ║ acm             │ ../modules/acm                    │ invoke acm module.                                                                         ║
 # ║ s3              │ ../modules/s3                     │ invoke s3 module.                                                                          ║

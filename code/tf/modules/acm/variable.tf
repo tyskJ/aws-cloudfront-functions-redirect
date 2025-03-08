@@ -1,5 +1,5 @@
 # ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-# ║ CloudFront S3 websitehosting redirect Stack - Terraform variable.tf variable                                                                     ║
+# ║ CloudFront Functions redirect Stack - Terraform variable.tf variable                                                                             ║
 # ╠══════════════════════════════════╤═══════════════════════════════════╤═══════════════════════════════════════════════════════════════════════════╣
 # ║ alb_cert_issue_domain_name       │ string                            │ Domain name of the certificate to be issued.                              ║
 # ║ alb_hostzone_id                  │ string                            │ Hostzone id.                                                              ║

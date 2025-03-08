@@ -1,5 +1,5 @@
 # ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-# ║ CloudFront S3 websitehosting redirect Stack - Terraform main.tf resource                                                                         ║
+# ║ CloudFront Functions redirect Stack - Terraform main.tf resource                                                                                 ║
 # ╠════════════════════════════════════╤═════════════════════════════════════════════════════╤═══════════════════════════════════════════════════════╣
 # ║ bucket                             │ aws_s3_bucket                                       │ S3 Bucket.                                            ║
 # ║ bucket_encrypt                     │ aws_s3_bucket_server_side_encryption_configuration  │ S3 Bucket Encryption configuration.                   ║

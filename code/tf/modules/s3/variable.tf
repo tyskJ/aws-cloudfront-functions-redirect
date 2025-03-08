@@ -1,5 +1,5 @@
 # ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-# ║ CloudFront S3 websitehosting redirect Stack - Terraform variable.tf variable                                                                     ║
+# ║ CloudFront Functions redirect Stack - Terraform variable.tf variable                                                                             ║
 # ╠══════════════════════════════════╤═══════════════════════════════════╤═══════════════════════════════════════════════════════════════════════════╣
 # ║ bucket_name                      │ string                            │ S3 Bucket Name.                                                           ║
 # ║ alb_fqdn                         │ string                            │ ALB FQDN.                                                                 ║

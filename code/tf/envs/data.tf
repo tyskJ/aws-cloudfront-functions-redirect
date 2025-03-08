@@ -1,5 +1,5 @@
 # ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-# ║ CloudFront S3 websitehosting redirect Stack - Terraform data.tf data                                                                             ║
+# ║ CloudFront Functions redirect Stack - Terraform data.tf data                                                                                     ║
 # ╠═══════════════════════╤═══════════════════════════════════╤══════════════════════════════════════════════════════════════════════════════════════╣
 # ║ current               │ aws_caller_identity               │ Account ID, User ID, ARN.                                                            ║
 # ║ current               │ aws_region                        │ Region.                                                                              ║
