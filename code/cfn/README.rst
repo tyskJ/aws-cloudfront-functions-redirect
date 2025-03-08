@@ -109,10 +109,10 @@
 
 .. note::
 
-  * tokyostack削除後、 *DNS検証* で自動作成されたホストゾーンの *CNAMEレコード* は残る
+  * tokyostack削除後、 *DNS検証* で自動作成されたALB用証明書の *CNAMEレコード* は残る
   * そのため、不要なら手動で *CNAMEレコード* を削除すること
 
-3. *virginiastack* 削除
+1. *virginiastack* 削除
 ---------------------------------------------------------------------
 .. code-block:: bash
 
@@ -120,7 +120,7 @@
 
 .. note::
 
-  * virginiastack削除後、 *DNS検証* で自動作成されたホストゾーンの *CNAMEレコード* は残る
+  * virginiastack削除後、 *DNS検証* で自動作成されたCloudFront用証明書の *CNAMEレコード* は残る
   * そのため、不要なら手動で *CNAMEレコード* を削除すること
 
 4. デプロイ用S3バケット作成(東京リージョン)削除
