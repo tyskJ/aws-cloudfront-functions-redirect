@@ -83,7 +83,7 @@
   "CertArnForCloudFront", "CloudFront用証明書ARN", "virginiastackデプロイ時に表示されたARN"
   "S3BucketName", "S3バケット名", "CloudFrontのオリジン用S3バケット名"
 
-1. HTMLファイルアップロード
+3. HTMLファイルアップロード
 ---------------------------------------------------------------------
 * *index.html*, *error.html* をS3バケットにアップロード
 
@@ -114,7 +114,7 @@
   * tokyostack削除後、 *DNS検証* で自動作成されたALB用証明書の *CNAMEレコード* は残る
   * そのため、不要なら手動で *CNAMEレコード* を削除すること
 
-1. *virginiastack* 削除
+3. *virginiastack* 削除
 ---------------------------------------------------------------------
 .. code-block:: bash
 
