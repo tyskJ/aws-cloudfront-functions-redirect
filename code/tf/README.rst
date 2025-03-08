@@ -63,7 +63,7 @@
   -var "alb_cert_issue_domain_name=ALB用に発行する証明書のドメイン名" \
   -var "alb_hostzone_id=ALB用Aliasレコードを登録するパブリックホストゾーンのゾーンID" \
   -var "alb_fqdn=ALB用AliasレコードのFQDN" \
-  -var "bucket_name=静的ウェブサイトホスティングを有効化するバケット名" \
+  -var "bucket_name=バケット名" \
   -var "cloudfront_cert_issue_domain_name=CloudFront用に発行する証明書のドメイン名" \
   -var "cloudfront_hostzone_id=CloudFront用Aliasレコードを登録するパブリックホストゾーンのゾーンID" \
   -var "cloudfront_fqdn=CloudFront用AliasレコードのFQDN"
@@ -78,7 +78,7 @@
   -var "alb_cert_issue_domain_name=ALB用に発行する証明書のドメイン名" \
   -var "alb_hostzone_id=ALB用Aliasレコードを登録するパブリックホストゾーンのゾーンID" \
   -var "alb_fqdn=ALB用AliasレコードのFQDN" \
-  -var "bucket_name=静的ウェブサイトホスティングを有効化するバケット名" \
+  -var "bucket_name=バケット名" \
   -var "cloudfront_cert_issue_domain_name=CloudFront用に発行する証明書のドメイン名" \
   -var "cloudfront_hostzone_id=CloudFront用Aliasレコードを登録するパブリックホストゾーンのゾーンID" \
   -var "cloudfront_fqdn=CloudFront用AliasレコードのFQDN"
@@ -95,12 +95,12 @@
   -var "alb_cert_issue_domain_name=ALB用に発行する証明書のドメイン名" \
   -var "alb_hostzone_id=ALB用Aliasレコードを登録するパブリックホストゾーンのゾーンID" \
   -var "alb_fqdn=ALB用AliasレコードのFQDN" \
-  -var "bucket_name=静的ウェブサイトホスティングを有効化するバケット名" \
+  -var "bucket_name=バケット名" \
   -var "cloudfront_cert_issue_domain_name=CloudFront用に発行する証明書のドメイン名" \
   -var "cloudfront_hostzone_id=CloudFront用Aliasレコードを登録するパブリックホストゾーンのゾーンID" \
   -var "cloudfront_fqdn=CloudFront用AliasレコードのFQDN"
 
-2. *tfstate* 用S3バケット削除
+1. *tfstate* 用S3バケット削除
 ---------------------------------------------------------------------
 .. code-block:: bash
 
