@@ -21,11 +21,11 @@ Metadata:
 # ╚═══════════════════════════════════════╧═════════════════════════════════════════════════╧════════════════════════════════════════════════════════╝
 Parameters:
   HostedZoneId:
-    Description: HostedZone ID for Validation Certificate.
+    Description: HostedZone ID for CloudFront Validation Certificate.
     Type: AWS::Route53::HostedZone::Id
 
   Fqdn:
-    Description: FQDN for issue Certificate Domain Name.
+    Description: FQDN for issue CloudFront Certificate Domain Name.
     Type: String
     AllowedPattern: "^[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\\.[a-zA-Z]{2,})+\\.?$"
     ConstraintDescription: "The domain name must be valid. Example: example.com"
