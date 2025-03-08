@@ -60,8 +60,8 @@ resource "aws_cloudfront_distribution" "distribution" {
   wait_for_deployment = true
   default_root_object = "index.html"
   origin {
-    origin_id   = aws_s3_bucket.bucket.id
-    domain_name = aws_s3_bucket.bucket.bucket_regional_domain_name
+    origin_id                = aws_s3_bucket.bucket.id
+    domain_name              = aws_s3_bucket.bucket.bucket_regional_domain_name
     origin_access_control_id = aws_cloudfront_origin_access_control.oac.id
   }
   default_cache_behavior {
