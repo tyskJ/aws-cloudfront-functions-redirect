@@ -18,6 +18,9 @@ cdk.Tags.of(virginia).add("Env", "Virginia");
 
 // Tokyo Stack
 const tokyo = new TokyoStack(app, "TokyoStack", {
+  env: {
+    region: "ap-northeast-1",
+  },
   crossRegionReferences: true,
   ...devParameter,
   cfCert: virginia.CfCertificate,
