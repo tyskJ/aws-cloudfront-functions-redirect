@@ -9,7 +9,6 @@ import * as cdk from "aws-cdk-lib";
 import { Construct } from "constructs";
 import * as cloudfront from "aws-cdk-lib/aws-cloudfront";
 import * as cloudfront_origins from "aws-cdk-lib/aws-cloudfront-origins";
-import * as iam from "aws-cdk-lib/aws-iam";
 import * as s3 from "aws-cdk-lib/aws-s3";
 import * as s3_deployment from "aws-cdk-lib/aws-s3-deployment";
 import * as acm from "aws-cdk-lib/aws-certificatemanager";
