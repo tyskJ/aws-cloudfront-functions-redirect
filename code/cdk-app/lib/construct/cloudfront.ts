@@ -30,7 +30,7 @@ export class CloudFront extends Construct {
     super(scope, id);
 
     // S3 Bucket
-    const bucket = new s3.Bucket(this, "RedirectBucket", {
+    const bucket = new s3.Bucket(this, props.bucket.id, {
       bucketName: props.bucket.bucketName,
       autoDeleteObjects: props.bucket.autoDeleteObjects,
       bucketKeyEnabled: props.bucket.bucketKeyEnabled,
