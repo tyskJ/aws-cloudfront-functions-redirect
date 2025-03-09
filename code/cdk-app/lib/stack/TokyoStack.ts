@@ -24,6 +24,7 @@ export class TokyoStack extends cdk.Stack {
       cfCert: props.cfCert,
       hosted_zone_id: this.node.tryGetContext("hosted_zone_id_for_cf"),
       zone_apnex_name: this.node.tryGetContext("zone_apnex_name_for_cf"),
+      albFqdn: this.node.tryGetContext("fqdn_for_alb"),
     });
 
     // Pseudo Parameters

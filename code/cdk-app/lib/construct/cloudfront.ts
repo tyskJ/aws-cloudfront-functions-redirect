@@ -16,6 +16,7 @@ import * as route53 from "aws-cdk-lib/aws-route53";
 import * as route53_targets from "aws-cdk-lib/aws-route53-targets";
 import { bucketInfo } from "../../parameter";
 import * as path from "path";
+import * as fs from "fs";
 
 export interface CloudFrontProps extends cdk.StackProps {
   bucket: bucketInfo;
@@ -23,6 +24,7 @@ export interface CloudFrontProps extends cdk.StackProps {
   cfCert: acm.Certificate;
   hosted_zone_id: string;
   zone_apnex_name: string;
+  albFqdn: string;
 }
 
 export class CloudFront extends Construct {
@@ -61,6 +63,20 @@ export class CloudFront extends Construct {
       }
     );
 
+    // Function
+    let functionCode = fs
+      .readFileSync(path.join(`${__dirname}`, "../assets/function.js"), "utf8")
+      .toString();
+    functionCode = functionCode.replace(/{FqdnForAlb}/g, props.albFqdn);
+
+    const func = new cloudfront.Function(this, "RedirectCode", {
+      functionName: "cf-redirect-function",
+      comment: "Redirect Function",
+      autoPublish: true,
+      runtime: cloudfront.FunctionRuntime.JS_2_0,
+      code: cloudfront.FunctionCode.fromInline(functionCode),
+    });
+
     // distribution
     const ditribution = new cloudfront.Distribution(this, "Distri", {
       enabled: true,
@@ -73,6 +89,12 @@ export class CloudFront extends Construct {
       defaultBehavior: {
         origin: s3Origin,
         viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+        functionAssociations: [
+          {
+            eventType: cloudfront.FunctionEventType.VIEWER_REQUEST,
+            function: func,
+          },
+        ],
       },
       errorResponses: [
         {
